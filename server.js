@@ -1,6 +1,8 @@
 import express from 'express';
 import dotenv from 'dotenv';
 import connectDB from './config/db.js';
+import DoctorRoutes from './routes/DoctorRoutes.js';
+import PatientRoutes from './routes/PatientRoutes.js';
 
 const app = express();
 app.use(express.json());
@@ -10,9 +12,8 @@ dotenv.config();
 connectDB();
 
 
-app.use('/', (req, res) => {
-    res.send({'Hello World': 'Hello World'});
-});
+app.use('/api/doctors', DoctorRoutes);
+app.use('/api/patients', PatientRoutes);
 
 
 
