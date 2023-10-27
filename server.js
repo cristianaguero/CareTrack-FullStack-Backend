@@ -3,6 +3,7 @@ import dotenv from 'dotenv';
 import connectDB from './config/db.js';
 import DoctorRoutes from './routes/DoctorRoutes.js';
 import PatientRoutes from './routes/PatientRoutes.js';
+import cors from 'cors';
 
 const app = express();
 app.use(express.json());
@@ -10,6 +11,20 @@ app.use(express.json());
 dotenv.config();
 
 connectDB();
+
+const allowedOrigins = [process.env.FRONTEND_URL];
+
+const corsOptions = {
+    origin: function (origin, callback) {
+        if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
+            callback(null, true)
+        } else {
+            callback(new Error('Not allowed by CORS'));
+        }
+    }
+}
+
+app.use(cors(corsOptions));
 
 
 app.use('/api/doctors', DoctorRoutes);

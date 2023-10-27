@@ -2,6 +2,9 @@ import Doctor from "../models/DoctorModel.js";
 import jwtGenerator from "../helpers/jwtGenerator.js";
 import { userExist, tokenExist } from "../services/DoctorService.js";
 import idGenerator from "../helpers/idGenerator.js";
+import emailRegister from "../helpers/emailRegister.js";
+import emailForgetPassword from "../helpers/emailForgetPassword.js";
+
 
 const register = async (req, res) => {
     const { email } = req.body;
@@ -13,10 +16,14 @@ const register = async (req, res) => {
         return res.status(400).json({ message: error.message });
     } else {
         try {
-            const doctor = await Doctor.create(req.body);
-            const newDoctor = await doctor.save();
+            const doctor = new Doctor(req.body);
+            doctor.token = idGenerator();
+            await doctor.save();
 
-            res.json(newDoctor)
+            emailRegister({email: doctor.email, name: doctor.name, surname: doctor.surname, token: doctor.token});
+
+
+            res.json({ message: "Doctor created successfully", doctor})
 
         } catch (error) {
             console.log(error);
@@ -83,7 +90,11 @@ const forgetPassword = async (req, res) => {
         try {
             doctor.token = idGenerator();
             await doctor.save();
+
+            emailForgetPassword({email: doctor.email, name: doctor.name, surname: doctor.surname, token: doctor.token});
+
             res.json({ message: 'We have sent an email with the instructions' })
+            
         } catch (error) {
             console.log(error);
         }

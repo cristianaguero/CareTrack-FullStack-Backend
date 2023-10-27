@@ -49,7 +49,15 @@ const DoctorSchema = new mongoose.Schema({
     patients: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: "Patient",
-    }]
+    }],
+    appointments: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Patient",
+    }],
+    isAdmin: {
+        type: Boolean,
+        default: false,
+    },
 }, {
     timestamps: true,
     });

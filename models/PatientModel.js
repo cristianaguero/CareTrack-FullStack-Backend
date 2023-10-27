@@ -75,6 +75,10 @@ const PatientSchema = new mongoose.Schema({
         type: String,
         default: null,
     },
+    clinical_history: [{
+        type: String,
+        default: null,
+    }],
     other_notes: {
         type: String,
         default: null,
@@ -85,7 +89,7 @@ const PatientSchema = new mongoose.Schema({
     }
 }, {
     timestamps: true,
-    });
+});
 
 const Patient = mongoose.model("Patient", PatientSchema);
 
