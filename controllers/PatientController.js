@@ -67,7 +67,7 @@ const updatePatient = async (req, res) => {
 
 
     try{
-        const updatedPatient = await Patient.save();
+        const updatedPatient = await patient.save();
         res.json(updatedPatient);
     } catch (error) {
         console.log(error);

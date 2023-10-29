@@ -67,7 +67,13 @@ const authenticate = async (req, res) => {
     }
 
     if(await doctor.comparePassword(password)) {
-        res.json({ token: jwtGenerator(doctor._id) });
+        res.json({ 
+            _id: doctor._id,
+            name: doctor.name,
+            surname: doctor.surname,
+            email: doctor.email,
+            confirmed: doctor.confirmed,
+            token: jwtGenerator(doctor._id) });
     } else {
         const error = new Error("Invalid credentials");
         return res.status(400).json({ message: error.message });
@@ -75,7 +81,7 @@ const authenticate = async (req, res) => {
 }
 
 const profile = async (req, res) => {
-    res.json({"doctor" : req.doctor});
+    res.json(req.doctor);
 }
 
 const forgetPassword = async (req, res) => {
@@ -107,7 +113,7 @@ const checkToken = async (req, res) => {
     const validToken = await Doctor.findOne({ token });
 
     if(validToken) {
-        res.json({ message: 'Token is valid' })
+        res.json({ message: 'Set a new password' })
     } else {
         const error = new Error("Invalid token");
         return res.status(400).json({ message: error.message });
@@ -128,10 +134,65 @@ const newPassword = async (req, res) => {
             doctor.password = password;
             doctor.token = null;
             await doctor.save();
-            res.json({ message: 'Password changed' })
+            res.json({ message: 'Password changed successfully' })
         } catch (error) {
             console.log(error);
         }
+    }
+}
+
+const updateProfile = async (req, res) => {
+    const { name, surname, speciality, hospital, location, phone } = req.body;
+
+    const { id } = req.params;
+
+    const doctor = await Doctor.findById(id);
+
+    if(!doctor) {
+        const error = new Error("User not found");
+        return res.status(400).json({ message: error.message });
+    } else {
+        try {
+            doctor.name = name || doctor.name;
+            doctor.surname = surname || doctor.surname;
+            doctor.speciality = speciality || doctor.speciality;
+            doctor.hospital = hospital || doctor.hospital;
+            doctor.location = location || doctor.location;
+            doctor.phone = phone || doctor.phone;
+
+            const updatedProfile = await doctor.save();
+
+            res.json({ message: 'Profile updated succesfully', updatedProfile})
+
+        } catch (error) {
+            console.log(error);
+        }
+    }
+}
+
+const updatePassword = async (req, res) => {
+const { currentPassword, newPassword } = req.body;
+
+    const { id } = req.params;
+
+    const doctor = await Doctor.findById(id);
+
+    if(!doctor) {
+        const error = new Error("User not found");
+        return res.status(400).json({ message: error.message });
+    }
+
+    if(await doctor.comparePassword(currentPassword)) {
+        try {
+            doctor.password = newPassword;
+            await doctor.save();
+            res.json({ message: 'Password changed successfully' })
+        } catch (error) {
+            console.log(error);
+        }
+    } else {
+        const error = new Error("Invalid credentials");
+        return res.status(400).json({ message: error.message });
     }
 }
 
@@ -143,5 +204,7 @@ export {
     profile,
     forgetPassword,
     checkToken,
-    newPassword
+    newPassword,
+    updateProfile,
+    updatePassword
 };

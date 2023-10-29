@@ -10,7 +10,9 @@ import {
     profile,
     forgetPassword,
     checkToken,
-    newPassword
+    newPassword,
+    updateProfile,
+    updatePassword
 } from '../controllers/DoctorController.js';
 
 router.post('/register', register);
@@ -21,5 +23,9 @@ router.get('/forget-password/:token', checkToken);
 router.post('/forget-password/:token', newPassword);
 
 router.get('/profile', checkAuth, profile)
+router.put('/profile/:id', checkAuth, updateProfile)
+router.put('/profile/change-password/:id', checkAuth, updatePassword)
+
+
 
 export default router;

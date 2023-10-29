@@ -47,7 +47,7 @@ const PatientSchema = new mongoose.Schema({
         type: String,
         default: null,
     },
-    reason_for_visit: {
+    symptoms: {
         type: String,
         default: null,
     },
@@ -59,7 +59,7 @@ const PatientSchema = new mongoose.Schema({
         type: String,
         default: null,
     },
-    next_appointment: {
+    appointment: {
         type: Date,
         default: null,
     },
