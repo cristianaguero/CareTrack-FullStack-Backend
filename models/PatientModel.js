@@ -63,10 +63,6 @@ const PatientSchema = new mongoose.Schema({
         type: Date,
         default: null,
     },
-    current_symptoms: {
-        type: String,
-        default: null,
-    },
     current_treatment: {
         type: String,
         default: null,

@@ -44,6 +44,8 @@ const updatePatient = async (req, res) => {
         return res.status(401).json({ message: "Unauthorized" });
     }
 
+    console.log(req.body.appointment)
+
     patient.name = req.body.name || patient.name;
     patient.surname = req.body.surname || patient.surname;
     patient.email = req.body.email || patient.email;
@@ -55,14 +57,12 @@ const updatePatient = async (req, res) => {
     patient.family_background = req.body.family_background || patient.family_background;
     patient.height = req.body.height || patient.height;
     patient.weight = req.body.weight || patient.weight;
-    patient.reason_for_visit = req.body.reason_for_visit || patient.reason_for_visit;
     patient.blood_type = req.body.blood_type || patient.blood_type;
     patient.current_medications = req.body.current_medications || patient.current_medications;
-    patient.next_appointment = req.body.next_appointment || patient.next_appointment;
-    patient.current_symptoms = req.body.current_symptoms || patient.current_symptoms;
-    patient.current_diagnosis = req.body.current_diagnosis || patient.current_diagnosis;
+    patient.appointment = req.body.appointment || patient.appointment;
+    patient.diagnosis = req.body.diagnosis || patient.diagnosis;
     patient.current_treatment = req.body.current_treatment || patient.current_treatment;
-    patient.diagnosis_history = req.body.diagnosis_history || patient.diagnosis_history;
+    patient.clinical_history = req.body.clinical_history || patient.clinical_history;
     patient.other_notes = req.body.other_notes || patient.other_notes;
 
 
