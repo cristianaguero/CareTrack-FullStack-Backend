@@ -14,22 +14,15 @@ connectDB();
 
 const allowedOrigins = [process.env.FRONTEND_URL];
 
-// const corsOptions = {
-//     origin: function (origin, callback) {
-//         if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
-//             callback(null, true)
-//         } else {
-//             callback(new Error('Not allowed by CORS'));
-//         }
-//     }
-// }
-
 const corsOptions = {
-    origin: 'https://caretrack.vercel.app',
-    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
-    credentials: true,
+    origin: function (origin, callback) {
+        if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
+            callback(null, true)
+        } else {
+            callback(new Error('Not allowed by CORS'));
+        }
     }
-
+}
 
 app.use(cors(corsOptions));
 
