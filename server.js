@@ -12,23 +12,19 @@ dotenv.config();
 
 connectDB();
 
-// const allowedOrigins = [process.env.FRONTEND_URL];
+const allowedOrigins = [process.env.FRONTEND_URL];
 
-// const corsOptions = {
-//     origin: function (origin, callback) {
-//         if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
-//             callback(null, true)
-//         } else {
-//             callback(new Error('Not allowed by CORS'));
-//         }
-//     }
-// }
+const corsOptions = {
+    origin: function (origin, callback) {
+        if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
+            callback(null, true)
+        } else {
+            callback(new Error('Not allowed by CORS'));
+        }
+    }
+}
 
-// app.use(cors(corsOptions));
-
-app.use(cors({
-    origin: '*'
-}));
+app.use(cors(corsOptions));
 
 
 app.use('/api/doctors', DoctorRoutes);
