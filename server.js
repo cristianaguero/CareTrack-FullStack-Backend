@@ -25,7 +25,7 @@ const allowedOrigins = [process.env.FRONTEND_URL];
 // }
 
 const corsOptions = {
-    origin: process.env.FRONTEND_URL,
+    origin: 'https://caretrack.vercel.app',
     methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
     credentials: true,
     }
