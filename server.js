@@ -12,16 +12,22 @@ dotenv.config();
 
 connectDB();
 
-const allowedOrigins = [process.env.FRONTEND_URL];
+// const allowedOrigins = [process.env.FRONTEND_URL];
+
+// const corsOptions = {
+//     origin: function (origin, callback) {
+//         if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
+//             callback(null, true)
+//         } else {
+//             callback(new Error('Not allowed by CORS'));
+//         }
+//     }
+// }
 
 const corsOptions = {
-    origin: function (origin, callback) {
-        if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
-            callback(null, true)
-        } else {
-            callback(new Error('Not allowed by CORS'));
-        }
-    }
+    origin: ['http://localhost:3000', process.env.FRONTEND_URL, 'https://main--lively-twilight-71eba1.netlify.app'],
+    credentials: true,
+    exposedHeaders: ['set-cookie']
 }
 
 app.use(cors(corsOptions));
