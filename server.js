@@ -12,7 +12,7 @@ dotenv.config();
 
 connectDB();
 
-const allowedOrigins = [process.env.FRONTEND_URL];
+const allowedOrigins = [process.env.FRONTEND_URL, 'https://lively-twilight-71eba1.netlify.app'];
 
 const corsOptions = {
     origin: function (origin, callback) {
