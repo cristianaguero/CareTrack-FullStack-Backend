@@ -25,7 +25,7 @@ connectDB();
 // }
 
 const corsOptions = {
-    origin: ['http://localhost:3000', process.env.FRONTEND_URL, 'https://main--lively-twilight-71eba1.netlify.app'],
+    origin: ['http://localhost:3000', process.env.FRONTEND_URL, 'https://main--lively-twilight-71eba1.netlify.app', 'https://main--lively-twilight-71eba1.netlify.app'],
     credentials: true,
     exposedHeaders: ['set-cookie']
 }
