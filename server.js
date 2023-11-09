@@ -11,7 +11,7 @@ app.use(express.json());
 
 dotenv.config();
 
-connectDB();
+
 
 const allowedOrigins = [process.env.FRONTEND_URL];
 
@@ -36,4 +36,11 @@ app.use('/api/patients', PatientRoutes);
 
 const PORT = process.env.PORT || 3000;
 
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+app.listen(PORT, async() => {
+    try{
+        await connectDB()
+    } catch(err){
+        console.log("Had an issue connecting to mongo server... " + err.message)
+    }
+    console.log(`Server running on port ${PORT}`)
+});
