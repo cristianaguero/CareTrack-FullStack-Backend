@@ -53,8 +53,13 @@ const confirmAccount = async (req, res) => {
 
 const authenticate = async (req, res) => {
     const { email, password } = req.body;
-
-    const doctor = await userExist(email);
+    let doctor = null;
+    try{
+         doctor = await userExist(email);
+    } catch (error) {
+        console.log(error);
+    }
+   
 
     if(!doctor) {    
         const error = new Error("Invalid credentials");
