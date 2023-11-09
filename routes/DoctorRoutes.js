@@ -1,7 +1,7 @@
 import express from 'express';
 const router = express.Router();
 
-import checkAuth from '../middleware/authMiddleware.js';
+import checkAuth from '../Middleware/authMiddleware.js';
 
 import {
     register,
