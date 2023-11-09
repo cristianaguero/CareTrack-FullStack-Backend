@@ -16,6 +16,7 @@ const allowedOrigins = [process.env.FRONTEND_URL];
 
 const corsOptions = {
     origin: function (origin, callback) {
+        console.log(origin)
         if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
             callback(null, true)
         } else {
