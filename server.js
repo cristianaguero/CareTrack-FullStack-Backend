@@ -36,11 +36,8 @@ app.use('/api/patients', PatientRoutes);
 
 const PORT = process.env.PORT || 3000;
 
-app.listen(PORT, async() => {
-    try{
-        await connectDB()
-    } catch(err){
-        console.log("Had an issue connecting to mongo server... " + err.message)
-    }
-    console.log(`Server running on port ${PORT}`)
+app.listen(PORT, () => {
+         connectDB().then(()=>{
+            console.log(`Server running on port ${PORT} and Mongo is live!`)
+         })  
 });
